@@ -1,0 +1,10 @@
+68c301dfb8a2d4d0522bcd5a1d471a7905055fdc
+2026-11-08T22:36:29Z
+anchor-cli 1.0.2
+solana-cli 3.1.10 (src:7bc9c805; feat:1620780344, client:Agave)
+cargo 1.96.0 (30a34c682 2026-05-25)
+rustc 1.96.0 (ac68faa20 2026-05-25)
+solana-cargo-build-sbf 3.1.10
+platform-tools v1.52
+rustc 1.89.0
+?? research/

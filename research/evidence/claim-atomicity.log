@@ -1,0 +1,35 @@
+   Compiling sale-test-common v0.1.0 (/workspace/1win-token-solana-programs/tests/sale)
+warning: unused import: `wallet_token_ata`
+ --> tests/sale/tests/research_claim_atomicity.rs:7:40
+  |
+7 |     refund_vault_pda, token_vault_pda, wallet_token_ata, TestEnv,
+  |                                        ^^^^^^^^^^^^^^^^
+  |
+  = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+warning: `sale-test-common` (test "research_claim_atomicity") generated 1 warning (run `cargo fix --test "research_claim_atomicity" -p sale-test-common` to apply 1 suggestion)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.72s
+     Running tests/research_claim_atomicity.rs (target/debug/deps/research_claim_atomicity-2d7b3ecb24eca7f1)
+
+running 1 test
+Frozen USDC ATA: expected SPL AccountFrozen (17), observed Some(17)
+failed-claim: Program GWvQinGBRa7ZUzhXY23MrLjdsx3KfRGxH8yXURBwrz1R invoke [1]
+failed-claim: Program log: Instruction: Claim
+failed-claim: Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA invoke [2]
+failed-claim: Program log: Instruction: Transfer
+failed-claim: Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA consumed 4645 of 164235 compute units
+failed-claim: Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA success
+failed-claim: Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA invoke [2]
+failed-claim: Program log: Instruction: Transfer
+failed-claim: Program log: Error: Account is frozen
+failed-claim: Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA consumed 4296 of 157635 compute units
+failed-claim: Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA failed: custom program error: 0x11
+failed-claim: Program GWvQinGBRa7ZUzhXY23MrLjdsx3KfRGxH8yXURBwrz1R consumed 46661 of 200000 compute units
+failed-claim: Program GWvQinGBRa7ZUzhXY23MrLjdsx3KfRGxH8yXURBwrz1R failed: custom program error: 0x11
+Rollback verified: token payout=0, USDC payout=0, both vault balances unchanged, aggregate retained
+Thaw/retry verified: 500 tokens and 5 USDC paid; aggregate closed
+Replay rejected with AccountNotInitialized (3012); payouts unchanged
+test frozen_refund_destination_rolls_back_tokens_then_thaw_allows_one_claim ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.55s
+

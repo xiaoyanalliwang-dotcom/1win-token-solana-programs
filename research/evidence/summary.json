@@ -1,0 +1,18 @@
+{
+  "source_revision": "68c301dfb8a2d4d0522bcd5a1d471a7905055fdc",
+  "new_test": "tests/sale/tests/research_claim_atomicity.rs",
+  "new_test_sha256": "9620931b7ec0cfa0ec6cc9dc23b379fb452e604f15ffba2d000bb620f858141c",
+  "scope": "synthetic local LiteSVM; no public RPC/transactions or external security testing",
+  "production_changes": false,
+  "initial_make_check_exit": 2,
+  "serial_workspace_doctest_exit": 0,
+  "targeted_test_exit": 0,
+  "targeted_clippy_exit": 0,
+  "targeted_fmt_exit": 0,
+  "final_make_check_exit": 0,
+  "final_counts": {
+    "passed": 624,
+    "failed": 0,
+    "ignored": 4
+  }
+}

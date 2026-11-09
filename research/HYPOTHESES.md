@@ -1,0 +1,22 @@
+# Research hypothesis ledger
+
+Abbreviated Sale file references below resolve under `programs/sale/src/instructions/`, except `math.rs` under `programs/sale/src/`.
+
+Revision reviewed: `68c301dfb8a2d4d0522bcd5a1d471a7905055fdc`. Scope: synthetic local simulations and read-only Sale claim/refund review. No confirmed vulnerability is established by this ledger. Status is evidence-specific, not a claim of exhaustive safety.
+
+| ID | Question / impact if true | State | Source and evidence | Next step |
+|---|---|---|---|---|
+| H-01 | Can a foreign signer claim another wallet's allocation or redirect its payout? | Rejected with evidence for tested direct cases | `programs/sale/src/instructions/claim.rs:27`, `:29`, `:41`, `:62`: signer, aggregate PDA/has_one and wallet-associated destinations. Existing `tests/sale/tests/claim.rs:598` exercises foreign aggregate substitution. | Existing foreign-signer and payout tests appear in the fresh baseline log; use verification.md for final run outcome. Broaden transaction-composition cases in a later pass. |
+| H-02 | Can a failed USDC refund leave the earlier token payout committed or consume the claim record? | Not reproduced in tested scenario | Claim token CPI `claim.rs:112`, second CPI `:134`, closure `:31`. Missing-account tests exist at `tests/sale/tests/claim.rs:520` and `:556`; a real second-CPI frozen-destination failure is the targeted scenario. | Targeted test passes: SPL AccountFrozen (17) after first transfer success; buyer/vault balances rolled back; aggregate retained; thaw pays 500 tokens/5 USDC once; replay rejected (3012). Evidence: research/evidence/claim-atomicity-final.log. Token ATA was precreated; existing missing-account test covers ATA creation rollback. |
+| H-03 | Can a refund operator send buyer USDC to an arbitrary destination, replay a refunded deposit or leave counters overstated? | Rejected with evidence for tested direct cases | `refund.rs:26`, `:41`, `:42`, `:59`, `:64`, `:101`, `:108`: role binding, deterministic fresh destination, wallet authority, deposit closure and paired checked decrements. | Existing refund unauthorized/substitution/replay/accounting cases pass in baseline execution; final suite exit and counts are in verification.md. No arbitrary destination or replay demonstrated. |
+| H-04 | Can allocation rounding exhaust the refund reserve and block later claims? | Not reproduced in tested scenarios | `math.rs:59`, `activate_claim.rs:107`: floor token allocation, ceil spending and reserve headroom per participant. | Fresh baseline includes dust_worstcase, solvency and lifecycle tests. No shortfall observed in those cases; exhaustive input-space proof remains outside this pass. |
+| H-05 | Can a USDC issuer freeze prevent a buyer from claiming both assets? | Locally reproduced expected issuer-control behavior | A frozen wallet USDC ATA may fail the second CPI at `claim.rs:134`; issuer privileges are a threat-model assumption, not evidence of an unprivileged exploit. | Local freeze blocks the combined payout; thaw before the deadline permits exact recovery. No attacker bypass or permanent loss proved. Continued issuer freezing through the claim deadline remains a documented operational/trust risk, untested here. |
+
+## Additional observations, not confirmed vulnerabilities
+
+- **H-06 — Vesting Admin trust (source-supported):** `programs/vesting/src/instructions/recipient.rs:18` and `:41` allow the authorized Admin to change the recipient, including after TGE. Claim pays the stored recipient. This is documented privileged behavior, not a demonstrated access-control bypass. Next: compare the policy with the intended deployment trust model; no external testing.
+- **H-07 — Rounding reserve overestimation (source-supported):** `programs/sale/src/instructions/purchase.rs:66` increments participants once at aggregate initialization, even without a purchase. `activate_claim.rs:111` reserves one minimal USDC unit per participant. Architecture accepts this conservative count. No economic attack impact was reproduced; quantify synthetic cost versus delayed proceeds and terminal sweep before claiming a defect.
+
+## Confirmation standard
+
+A confirmed finding needs: the attacker capability, violated requirement, exact affected revision, local reproduction command, assertion of impact, actual output and exit status, plus limitations. Failed commands and guessed severity do not meet this standard. External testing and disclosure require separate explicit authorization.

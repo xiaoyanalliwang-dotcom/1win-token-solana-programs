@@ -1,0 +1,975 @@
+cargo fmt --all -- --check
+cargo clippy --workspace --all-targets --locked -- -D warnings
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 1.52s
+id-check sale: GWvQinGBRa7ZUzhXY23MrLjdsx3KfRGxH8yXURBwrz1R
+id-check burn: B2RFzpckwjtHXHMrPMKarg6Cj6xkSdT6mru4gJiJE87L
+id-check vesting: sxzuA7TuRvjVbrXkJUgrYq2hfjVf3RFd8WFaSxt2rYm
+anchor build --no-idl --ignore-keys -- -- --locked
+    Finished `release` profile [optimized] target(s) in 0.37s
+    Finished `release` profile [optimized] target(s) in 0.24s
+    Finished `release` profile [optimized] target(s) in 0.22s
+cargo test --workspace --locked
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.43s
+     Running unittests src/lib.rs (target/debug/deps/burn-f9d937f6e48fe295)
+
+running 11 tests
+test period::tests::accumulate_limit_boundary_both_errors ... ok
+test period::tests::accumulate_new_index_resets_base ... ok
+test period::tests::accumulate_overflow_is_math_overflow ... ok
+test period::tests::accumulate_max_limit_passes_max_amount ... ok
+test period::tests::accumulate_same_index_adds_to_burned ... ok
+test period::tests::negative_now_is_error ... ok
+test period::tests::period_boundaries ... ok
+test test_id ... ok
+test period::tests::week_index_not_above_day_index ... ok
+test period::tests::negative_now_always_error ... ok
+test period::tests::indices_monotonic_in_now ... ok
+
+test result: ok. 11 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.04s
+
+     Running unittests src/lib.rs (target/debug/deps/burn_tests-dac92305cdbfc388)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/exec.rs (target/debug/deps/exec-200933bb502556b8)
+
+running 14 tests
+test burn_exactly_at_daily_limit_passes_then_one_more_rejected ... ok
+test burn_day_rollover_resets_daily_accumulates_weekly ... ok
+test burn_insufficient_vault_is_spl_error_and_windows_roll_back ... ok
+test burn_rejects_any_account_but_the_vault ... ok
+test burn_rejects_foreign_vault_authority ... ok
+test burn_rejects_foreign_mint_account ... ok
+test burn_rejects_foreign_counters_account ... ok
+test burn_rejects_zero_amount ... ok
+test burn_updates_windows_supply_and_emits_event ... ok
+test burn_week_rollover_resets_both_windows ... ok
+test burn_weekly_limit_binds_when_daily_ok ... ok
+test burn_windows_overflow_is_error_not_panic ... ok
+test direct_spl_burn_and_transfer_out_of_vault_are_rejected ... ok
+test fund_and_burn_in_one_transaction_are_atomic ... ok
+
+test result: ok. 14 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.87s
+
+     Running tests/initialize.rs (target/debug/deps/initialize-2148a438e147047b)
+
+running 8 tests
+test initialize_rejects_foreign_program_data ... ok
+test initialize_rejects_non_upgrade_authority_signer ... ok
+test initialize_rejects_random_signer_not_upgrade_authority ... ok
+test double_initialize_reverts_and_keeps_first_state ... ok
+test initialize_stores_all_fields_and_emits_event ... ok
+test initialize_rejects_wrong_mint_decimals ... ok
+test initialize_rejects_zero_limits ... ok
+test initialize_rejects_zero_role_pubkeys ... ok
+
+test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.60s
+
+     Running tests/params_roles.rs (target/debug/deps/params_roles-e40a77e700a66400)
+
+running 15 tests
+test accept_owner_without_pending_rejected ... ok
+test burn_rejects_every_role_but_operator ... ok
+test accept_owner_by_wrong_key_rejected ... ok
+test cancel_owner_proposal_by_candidate_rejected ... ok
+test cancel_owner_proposal_clears_pending_and_blocks_candidate ... ok
+test cancel_owner_proposal_without_pending_rejected ... ok
+test owner_survives_handover_to_unusable_address ... ok
+test owner_handover_two_step_transfers_control ... ok
+test set_admin_rotation_switches_limits_rights ... ok
+test re_propose_revokes_previous_candidate ... ok
+test set_limits_rejects_non_admin ... ok
+test set_limits_rejects_zero_values ... ok
+test set_limits_updates_state_emits_event_and_applies_to_burn ... ok
+test set_operator_rotation_switches_burn_rights ... ok
+test set_role_rejects_non_owner_and_zero_pubkey ... ok
+
+test result: ok. 15 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.90s
+
+     Running unittests src/lib.rs (target/debug/deps/expected-d5c8797dc60537cb)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src/lib.rs (target/debug/deps/sale-229d2ca76584ba2b)
+
+running 37 tests
+test math::tests::edge_exact_soft_cap_boundary_is_undersubscribed ... ok
+test math::tests::edge_extreme_oversubscription_zero_tokens ... ok
+test math::tests::allocate_overflow_on_downcast_is_error ... ok
+test math::tests::edge_pool_zero_distributable_zero ... ok
+test math::tests::edge_net_zero_allocates_nothing ... ok
+test math::tests::edge_single_participant_takes_full_pool ... ok
+test math::tests::p2_rounding_dust_three_wallets ... ok
+test math::tests::p1_oversubscription_canonical ... ok
+test math::tests::p3_spent_equals_net ... ok
+test math::tests::soft_cap_usdc_at_defaults ... ok
+test math::tests::math_is_total_on_full_u64_domain ... ok
+test math::tests::tokens_monotonic_in_net ... ok
+test math::tests::undersubscribed_refund_is_zero ... ok
+test math::tests::spent_refund_identity_oversubscribed ... ok
+test math::tests::zero_divisor_is_error_not_panic ... ok
+test phase::tests::claim_fields_ignored_before_fixation ... ok
+test phase::tests::phase_boundaries_after_fixation ... ok
+test phase::tests::phase_boundaries_before_fixation ... ok
+test state::sale_state::tests::claim_duration_boundaries ... ok
+test state::sale_state::tests::claim_start_date_anchor_follows_now_after_sale_end ... ok
+test state::sale_state::tests::claim_start_date_anchor_is_sale_end_until_it_passes ... ok
+test state::sale_state::tests::claim_start_date_delay_ceiling ... ok
+test state::sale_state::tests::claim_start_date_extremes_are_errors ... ok
+test state::sale_state::tests::claim_start_date_order_boundaries ... ok
+test state::sale_state::tests::emission_boundaries ... ok
+test state::sale_state::tests::price_boundaries ... ok
+test state::sale_state::tests::sale_window_duration_ceiling ... ok
+test state::sale_state::tests::sale_window_extremes_are_errors ... ok
+test state::sale_state::tests::sale_window_order_boundaries ... ok
+test state::sale_state::tests::sale_window_order_checked_before_ceiling ... ok
+test state::sale_state::tests::sale_window_start_delay_ceiling ... ok
+test state::sale_state::tests::sale_window_start_must_be_ahead_of_now ... ok
+test state::sale_state::tests::tx_limits_boundaries ... ok
+test test_id ... ok
+test math::tests::vault_solvency_undersubscribed ... ok
+test math::tests::vault_solvency_oversubscribed ... ok
+test math::tests::dust_reserve_sufficient ... ok
+
+test result: ok. 37 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 2.42s
+
+     Running unittests src/lib.rs (target/debug/deps/sale_e2e-9143370f07200bb5)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/lifecycle.rs (target/debug/deps/lifecycle-32777413de7dbb26)
+
+running 2 tests
+test oversubscribed_full_lifecycle_on_surfpool ... ignored, e2e: requires surfpool, run it through make e2e
+test undersubscribed_full_lifecycle_on_surfpool ... ignored, e2e: requires surfpool, run it through make e2e
+
+test result: ok. 0 passed; 0 failed; 2 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/load.rs (target/debug/deps/load-ff1fd81d71d9f4ea)
+
+running 1 test
+test purchase_write_lock_serialization_bench ... ignored, e2e load: requires surfpool, run it through make e2e
+
+test result: ok. 0 passed; 0 failed; 1 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src/lib.rs (target/debug/deps/sale_test_common-9c4f078b62f1da64)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/activate_claim.rs (target/debug/deps/activate_claim-13318ac9fbc93852)
+
+running 14 tests
+test activate_at_claim_start_date_rejected ... ok
+test activate_by_non_admin_rejected ... ok
+test activate_after_claim_deadline_rejected ... ok
+test activate_after_original_ceiling_recovers_by_rescheduling ... ok
+test activate_in_presale_rejected_wrong_phase ... ok
+test activate_just_before_claim_start_date_keeps_full_window ... ok
+test activate_in_sale_rejected_wrong_phase ... ok
+test activate_oversubscribed_splits_proceeds_and_refund ... ok
+test activate_oversubscribed_without_refund_vault_rejected ... ok
+test activate_rejected_when_deposit_vault_underfunded ... ok
+test activate_rejected_when_token_vault_underfunded ... ok
+test activate_twice_rejected ... ok
+test activate_undersubscribed_all_to_proceeds_no_refund_vault ... ok
+test activate_undersubscribed_with_refund_vault_rejected ... ok
+
+test result: ok. 14 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 2.15s
+
+     Running tests/blacklist.rs (target/debug/deps/blacklist-b07f481a298e64f5)
+
+running 9 tests
+test add_seed_mismatch_fails ... ok
+test double_add_same_wallet_fails ... ok
+test add_remove_add_reblocks_same_wallet ... ok
+test add_rejects_non_operator ... ok
+test remove_nonexistent_fails ... ok
+test operator_add_then_remove_lifecycle ... ok
+test remove_existing_slot_for_wrong_wallet_fails ... ok
+test remove_rejects_non_operator ... ok
+test remove_seed_mismatch_fails ... ok
+
+test result: ok. 9 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.28s
+
+     Running tests/claim.rs (target/debug/deps/claim-d8e409404905035c)
+
+running 13 tests
+test claim_after_deadline_rejected ... ok
+test claim_before_claim_start_date_rejected_wrong_phase ... ok
+test claim_at_last_second_before_deadline_ok ... ok
+test claim_boundary_start_minus_one_denied_at_start_ok ... ok
+test claim_by_foreign_signer_rejected ... ok
+test claim_oversubscribed_without_refund_vault_rejected ... ok
+test claim_oversubscribed_without_usdc_ata_rejected ... ok
+test claim_oversubscribed_pays_tokens_and_refund_closes_aggregate ... ok
+test claim_twice_rejected_account_not_initialized ... ok
+test claim_unaffected_by_pause ... ok
+test claim_unaffected_by_blacklist ... ok
+test claim_undersubscribed_pays_tokens_only_closes_aggregate ... ok
+test claim_with_zero_net_rejected_nothing_to_claim ... ok
+
+test result: ok. 13 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 2.19s
+
+     Running tests/close_batch.rs (target/debug/deps/close_batch-375337ff6f36a8ef)
+
+running 19 tests
+test close_aggregates_closes_after_deadline_returns_rent ... ok
+test batch_close_does_not_move_pool_fixed_or_participants ... ok
+test at_exact_deadline_claim_rejected_but_close_aggregates_succeeds ... ok
+test close_aggregates_before_deadline_rejected ... ok
+test close_deposits_batch_too_large_rejected ... ok
+test close_by_non_operator_rejected_unauthorized ... ok
+test close_deposits_closes_and_returns_rent_to_body_wallets ... ok
+test close_deposits_dead_account_rejected ... ok
+test close_deposits_during_sale_rejected ... ok
+test close_deposits_duplicate_in_batch_reverts_atomically ... ok
+test close_deposits_non_canonical_pda_rejected ... ok
+test close_deposits_pda_body_mismatch_rejected ... ok
+test close_deposits_odd_account_count_rejected ... ok
+test close_deposits_rejected_until_deadline_then_closes ... ok
+test close_deposits_full_achievable_batch_in_one_tx ... ok
+test close_deposits_sale_state_pda_rejected ... ok
+test close_deposits_system_owned_account_rejected ... ok
+test close_deposits_wrong_discriminator_rejected ... ok
+test close_deposits_wrong_paired_wallet_rejected ... ok
+
+test result: ok. 19 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 2.92s
+
+     Running tests/cu_bench.rs (target/debug/deps/cu_bench-94742851fedc4a40)
+
+running 4 tests
+test tx_size_close_batch_legacy ... ok
+test cu_bench_refund_and_undersubscribed_branches ... ok
+test cu_bench_purchase_claim_over_withdraw_sweeps ... ok
+test cu_bench_close_batches ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 4.12s
+
+     Running tests/dust_worstcase.rs (target/debug/deps/dust_worstcase-feb99226e41ce128)
+
+running 3 tests
+test p2_rounding_dust_exact_on_chain ... ok
+test one_unit_deposits_full_refund_zero_token_claims ... ok
+test max_price_sixty_wallets_reserve_covers_dust ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 5.08s
+
+     Running tests/funding.rs (target/debug/deps/funding-48d1f96c1dd7ec87)
+
+running 11 tests
+test assert_funded_binds_vault_to_sale_state ... ok
+test assert_funded_accepts_surplus ... ok
+test assert_funded_follows_stored_emission ... ok
+test assert_funded_changes_nothing ... ok
+test assert_funded_is_not_gated_by_phase ... ok
+test assert_funded_gates_mint_authority_revocation ... ok
+test assert_funded_passes_at_exactly_emission ... ok
+test assert_funded_is_permissionless ... ok
+test assert_funded_rejects_empty_vault ... ok
+test assert_funded_rejects_one_unit_short ... ok
+test underfunded_vault_reverts_the_whole_revocation_tx ... ok
+
+test result: ok. 11 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.49s
+
+     Running tests/graylist.rs (target/debug/deps/graylist-f33d8eb89c405351)
+
+running 19 tests
+test admin_update_overwrites_limits ... ok
+test admin_create_stores_limits ... ok
+test create_accepts_all_equal_limits ... ok
+test admin_remove_closes_entry ... ok
+test create_rejects_min_above_max ... ok
+test create_rejects_max_above_total ... ok
+test create_rejects_non_admin ... ok
+test create_rejects_zero_min ... ok
+test create_seed_mismatch_fails ... ok
+test create_remove_create_re_sets_same_wallet ... ok
+test double_create_same_wallet_fails ... ok
+test remove_existing_slot_for_wrong_wallet_fails ... ok
+test remove_rejects_non_admin ... ok
+test update_existing_slot_for_wrong_wallet_fails ... ok
+test update_nonexistent_fails ... ok
+test update_rejects_max_above_total ... ok
+test update_rejects_zero_min ... ok
+test update_rejects_min_above_max ... ok
+test update_rejects_non_admin ... ok
+
+test result: ok. 19 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 2.26s
+
+     Running tests/initialize.rs (target/debug/deps/initialize-9cf46a1a852fb8f8)
+
+running 25 tests
+test initialize_accepts_sale_duration_at_ceiling ... ok
+test double_initialize_reverts_and_keeps_first_state ... ok
+test initialize_accepts_claim_duration_at_min ... ok
+test initialize_accepts_sale_start_date_at_delay_ceiling ... ok
+test initialize_rejects_claim_duration_below_min ... ok
+test initialize_creates_vaults_bound_to_mints_and_vault_authority ... ok
+test initialize_rejects_claim_duration_above_max ... ok
+test initialize_rejects_claim_start_date_in_past ... ok
+test initialize_rejects_claim_start_date_too_far ... ok
+test initialize_rejects_end_before_start ... ok
+test initialize_rejects_min_above_max ... ok
+test initialize_rejects_non_upgrade_authority_signer ... ok
+test initialize_rejects_price_at_or_above_token_units ... ok
+test initialize_rejects_random_signer_not_upgrade_authority ... ok
+test initialize_rejects_sale_duration_too_long ... ok
+test initialize_rejects_sale_start_date_not_in_future ... ok
+test initialize_rejects_sale_start_date_too_far ... ok
+test initialize_rejects_same_mint_for_usdc_and_token ... ok
+test initialize_rejects_wrong_token_decimals ... ok
+test initialize_rejects_wrong_usdc_decimals ... ok
+test initialize_rejects_zero_emission ... ok
+test initialize_rejects_zero_min_per_tx ... ok
+test initialize_rejects_zero_price ... ok
+test initialize_succeeds_and_stores_all_fields ... ok
+test initialize_rejects_zero_role_pubkeys ... ok
+
+test result: ok. 25 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 3.46s
+
+     Running tests/params.rs (target/debug/deps/params-71623e03aed6cb50)
+
+running 12 tests
+test set_claim_schedule_accepts_duration_at_min ... ok
+test set_claim_schedule_positive_and_negatives ... ok
+test set_claim_schedule_in_sale_ended_ceiling_follows_now ... ok
+test set_claim_schedule_in_sale_ended_rejects_start_not_ahead_of_now ... ok
+test set_price_positive_and_negatives ... ok
+test set_emission_positive_and_zero_negative ... ok
+test set_sale_schedule_accepts_sale_duration_at_ceiling ... ok
+test set_sale_schedule_claim_start_date_too_far_boundary ... ok
+test set_sale_schedule_rejects_sale_duration_too_long ... ok
+test set_sale_schedule_positive_and_negatives ... ok
+test set_sale_schedule_rejects_sale_start_date_too_far ... ok
+test set_tx_limits_positive_and_negatives ... ok
+
+test result: ok. 12 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.33s
+
+     Running tests/phase_matrix.rs (target/debug/deps/phase_matrix-307621037924410b)
+
+running 12 tests
+test param_setter_denied_throughout_sale_window ... ok
+test pause_boundary_start_minus_one_denied_start_ok_end_denied ... ok
+test all_economic_setters_denied_in_sale ... ok
+test pause_allowed_in_sale_only ... ok
+test set_claim_schedule_allowed_in_presale ... ok
+test set_claim_schedule_after_pool_fixed_rejected ... ok
+test set_claim_schedule_allowed_in_sale_ended_before_fixation ... ok
+test set_claim_schedule_allowed_in_sale ... ok
+test set_claim_schedule_in_claim_phase_rejected_wrong_phase ... ok
+test set_price_allowed_in_presale_denied_after_start ... ok
+test set_price_boundary_at_start_minus_one_ok_at_start_denied ... ok
+test unpause_allowed_outside_sale ... ok
+
+test result: ok. 12 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.29s
+
+     Running tests/program_owned_wallet.rs (target/debug/deps/program_owned_wallet-c88c5faec7acfb6b)
+
+running 6 tests
+test blacklist_add_seed_mismatch_still_fails_for_program_owned_wallet ... ok
+test blacklist_add_remove_for_program_owned_wallet ... ok
+test graylist_lifecycle_for_program_owned_wallet ... ok
+test program_owned_wallet_can_be_banned_and_then_cannot_purchase ... ok
+test refund_creates_refund_account_for_program_owned_wallet ... ok
+test refund_returns_usdc_to_program_owned_wallet ... ok
+
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.96s
+
+     Running tests/property_lifecycle.rs (target/debug/deps/property_lifecycle-4127f2056b560449)
+
+running 5 tests
+test lifecycle_full_refund_pool_zero ... ok
+test lifecycle_random_small_pools ... ok
+test lifecycle_random_extreme_params ... ok
+test lifecycle_max_scale_200_wallets has been running for over 60 seconds
+test lifecycle_random_medium_pools has been running for over 60 seconds
+test lifecycle_max_scale_200_wallets ... ok
+test lifecycle_random_medium_pools ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 79.47s
+
+     Running tests/purchase.rs (target/debug/deps/purchase-4834532f3be6f8de)
+
+running 29 tests
+test init_aggregate_double_same_wallet_fails ... ok
+test init_aggregate_blacklist_slot_for_wrong_wallet_fails_constraint_seeds ... ok
+test init_aggregate_clean_passes_blacklisted_rejected ... ok
+test init_aggregate_creates_zeroed_aggregate_and_counts_participant ... ok
+test init_aggregate_rejected_in_presale ... ok
+test init_aggregate_on_curve_passes_off_curve_rejected ... ok
+test init_aggregate_rejected_in_sale_ended ... ok
+test init_aggregate_passes_after_blacklist_remove ... ok
+test init_aggregate_rejected_when_paused ... ok
+test purchase_above_graylist_max_rejected ... ok
+test purchase_below_graylist_min_rejected ... ok
+test purchase_blacklist_slot_for_wrong_wallet_fails_constraint_seeds ... ok
+test purchase_clean_passes_blacklisted_rejected ... ok
+test purchase_boundary_end_minus_one_ok_at_end_denied ... ok
+test purchase_global_limit_boundaries ... ok
+test purchase_foreign_deposit_vault_fails_constraint_address ... ok
+test purchase_graylist_limits_fully_replace_global ... ok
+test purchase_graylist_max_total_boundary ... ok
+test purchase_live_foreign_blacklist_slot_fails_constraint_seeds ... ok
+test purchase_graylist_slot_for_wrong_wallet_fails_constraint_seeds ... ok
+test purchase_on_curve_passes_off_curve_rejected ... ok
+test purchase_rejected_in_sale_ended ... ok
+test purchase_passes_again_after_blacklist_remove ... ok
+test purchase_records_deposit_and_increments_counters ... ok
+test purchase_rejected_when_paused ... ok
+test purchase_three_times_accumulates_net_and_indices_i1 ... ok
+test purchase_two_wallets_sum_into_state_and_vault_i2 ... ok
+test purchase_without_aggregate_fails_account_not_initialized ... ok
+test purchase_wrong_deposit_index_slot_fails_constraint_seeds ... ok
+
+test result: ok. 29 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 7.14s
+
+     Running tests/refund.rs (target/debug/deps/refund-c001611f020a201d)
+
+running 17 tests
+test refund_by_non_operator_rejected ... ok
+test refund_foreign_deposit_vault_fails_constraint_address ... ok
+test refund_after_pool_fixed_rejected ... ok
+test refund_account_is_not_the_operators ... ok
+test refund_full_zeroes_net_but_keeps_aggregate ... ok
+test refund_in_presale_rejected_wrong_phase ... ok
+test refund_rejects_any_account_but_the_refund_pda ... ok
+test refund_replay_fails_account_not_initialized ... ok
+test refund_returns_usdc_closes_deposit_and_decrements_counters ... ok
+test refund_succeeds_when_wallet_ata_is_frozen ... ok
+test refund_succeeds_after_wallet_rotates_ata_authority ... ok
+test refund_succeeds_with_prefunded_refund_slot ... ok
+test refund_succeeds_when_wallet_is_executable ... ok
+test refund_succeeds_without_any_usdc_account ... ok
+test refund_unaffected_by_pause ... ok
+test refund_works_in_sale_ended_before_activation ... ok
+test refund_with_foreign_usdc_mint_fails_constraint_address ... ok
+
+test result: ok. 17 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 4.28s
+
+     Running tests/role_matrix.rs (target/debug/deps/role_matrix-20fd230166f0844e)
+
+running 3 tests
+test owner_role_setters_reject_wrong_signers ... ok
+test pause_unpause_reject_wrong_signers ... ok
+test admin_setters_reject_wrong_signers ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.72s
+
+     Running tests/roles.rs (target/debug/deps/roles-75e539df95c73cc2)
+
+running 11 tests
+test accept_owner_by_wrong_key_rejected ... ok
+test accept_owner_without_pending_rejected ... ok
+test cancel_owner_proposal_clears_pending_and_blocks_candidate ... ok
+test cancel_owner_proposal_by_candidate_rejected ... ok
+test cancel_owner_proposal_without_pending_rejected ... ok
+test owner_handover_two_step_transfers_control ... ok
+test owner_survives_handover_to_unusable_address ... ok
+test set_admin_positive_updates_field ... ok
+test set_operator_positive_updates_field ... ok
+test re_propose_revokes_previous_candidate ... ok
+test set_role_rejects_zero_pubkey ... ok
+
+test result: ok. 11 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.77s
+
+     Running tests/smoke.rs (target/debug/deps/smoke-f11e31f2d9071dae)
+
+running 12 tests
+test expire_blockhash_rotates_latest_blockhash ... ok
+test actors_and_new_user_are_funded ... ok
+test identical_tx_replay_rejected_until_blockhash_expires ... ok
+test mint_to_and_token_balance_roundtrip ... ok
+test program_account_matches_upgradeable_loader_layout ... ok
+test mints_created_with_spec_decimals_and_test_authority ... ok
+test programdata_fixture_honors_custom_upgrade_authority ... ok
+test programdata_fixture_parses_with_expected_upgrade_authority ... ok
+test short_instruction_data_fails_with_instruction_fallback_not_found ... ok
+test unknown_discriminator_fails_with_instruction_fallback_not_found ... ok
+test warp_to_rejects_time_rollback - should panic ... ok
+test warp_to_sets_timestamp_and_advances_slot_deterministically ... ok
+
+test result: ok. 12 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.53s
+
+     Running tests/solvency.rs (target/debug/deps/solvency-07fa468d0a3cdc83)
+
+running 3 tests
+test oversubscribed_max_proceeds_withdrawal_never_starves_refunds ... ok
+test withdraw_proceeds_cannot_be_repeated_to_drain_refund_reserve ... ok
+test fully_refunded_wallet_does_not_starve_other_claimers ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.74s
+
+     Running tests/sweep.rs (target/debug/deps/sweep-b119f08ef2724597)
+
+running 8 tests
+test sweep_before_pool_fixed_rejected_deadline_not_passed ... ok
+test sweep_deposit_vault_takes_stray_donation ... ok
+test sweep_by_non_owner_rejected_unauthorized ... ok
+test sweep_in_claim_phase_rejected_deadline_not_passed ... ok
+test sweep_refund_vault_drains_dust_and_closes ... ok
+test sweep_refund_vault_undersubscribed_rejected_account_not_initialized ... ok
+test sweep_is_idempotent_per_vault ... ok
+test sweep_token_vault_drains_leftover_and_closes ... ok
+
+test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.26s
+
+     Running tests/withdraw_proceeds.rs (target/debug/deps/withdraw_proceeds-45e3cc509ace2092)
+
+running 10 tests
+test withdraw_before_pool_fixed_rejected ... ok
+test withdraw_before_claim_start_date_rejected_claim_not_started ... ok
+test withdraw_boundary_claim_start_date_minus_one_denied_at_start_ok ... ok
+test withdraw_available_in_claim_closed ... ok
+test withdraw_undersubscribed_pays_full_pool_and_closes_vault ... ok
+test withdraw_twice_rejected_account_not_initialized ... ok
+test withdraw_by_non_owner_rejected_unauthorized ... ok
+test withdraw_oversubscribed_pays_soft_cap_minus_participants_and_closes_vault ... ok
+test withdraw_with_deposit_vault_in_proceeds_slot_rejected_constraint_seeds ... ok
+test withdraw_with_refund_vault_in_proceeds_slot_rejected_constraint_seeds ... ok
+
+test result: ok. 10 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.66s
+
+     Running unittests src/lib.rs (target/debug/deps/vesting-1095e96311701450)
+
+running 57 tests
+test math::tests::cliff_last_day_of_cliff_is_zero ... ok
+test math::tests::accrual_skipped_periods_sum_up ... ok
+test math::tests::accrual_remainder_claimable_at_terminal_period ... ok
+test math::tests::cliff_first_tranche_on_day_271 ... ok
+test math::tests::cliff_one_rejected_zero_and_two_accepted ... ok
+test math::tests::cliff_with_tge_share_adds_monthly_after_cliff ... ok
+test math::tests::cliff_with_tge_share_pays_tge_during_cliff ... ok
+test math::tests::edge_bps_0_1_max_tranches_rejected_by_schedule_cap ... ok
+test math::tests::edge_bps_9999_1_single_tranche_tops_up_to_reference ... ok
+test math::tests::edge_bps_0_1_widest_product_downcasts ... ok
+test math::tests::cliff_zero_and_one_are_indistinguishable ... ok
+test math::tests::edge_max_cliff_at_schedule_cap ... ok
+test math::tests::edge_reference_one_unit_pays_only_at_terminal ... ok
+test math::tests::edge_monthly_bps_10000_single_tranche ... ok
+test math::tests::edge_reference_u64_max_with_full_tge_share ... ok
+test math::tests::floor_eleven_tranches_fall_short_of_reference ... ok
+test math::tests::floor_last_tranche_is_eighty_seven_not_eighty_three ... ok
+test math::tests::floor_monthly_amount_is_83 ... ok
+test math::tests::floor_never_exceeds_reference_over_period_grid ... ok
+test math::tests::floor_terminal_tranche_reaches_reference_exactly ... ok
+test math::tests::section_games_matches_table ... ok
+test math::tests::section_liquidity_matches_table ... ok
+test math::tests::section_marketing_matches_table ... ok
+test math::tests::section_treasury_matches_table ... ok
+test math::tests::section_wager_matches_table ... ok
+test math::tests::spec_constants_match_expected ... ok
+test math::tests::tge_only_at_tge_gives_reference ... ok
+test math::tests::tge_only_before_tge_is_zero ... ok
+test math::tests::tge_only_ignores_cliff_months ... ok
+test math::tests::tge_only_requires_full_tge_share ... ok
+test math::tests::tge_only_stays_at_reference_ten_years_later ... ok
+test math::tests::time_at_tge_gives_tge_share_only ... ok
+test math::tests::time_before_tge_is_zero ... ok
+test math::tests::time_far_future_stays_at_reference ... ok
+test math::tests::time_first_monthly_tranche_at_day_31 ... ok
+test math::tests::time_i64_max_does_not_panic ... ok
+test math::tests::time_last_second_of_period_zero_holds_tge_share ... ok
+test math::tests::time_pre_terminal_period_is_below_reference ... ok
+test math::tests::time_terminal_period_is_exactly_reference ... ok
+test math::tests::tranche_step_equals_monthly_amount ... ok
+test math::tests::pda_seed_materials_do_not_collide ... ok
+test math::tests::vested_at_tge_moment_equals_tge_amount ... ok
+test math::tests::vested_at_terminal_period_equals_reference ... ok
+test math::tests::vested_before_tge_is_zero ... ok
+test math::tests::increments_sum_to_reference ... ok
+test math::tests::vested_is_monotonic_in_now ... ok
+test math::tests::vesting_schedule_maps_stored_fields ... ok
+test state::config::tests::payee_rejects_zero_vault_authority_and_off_curve ... ok
+test state::config::tests::payee_vault_authority_gate_precedes_curve_check ... ok
+test state::config::tests::role_key_rejects_zero ... ok
+test state::config::tests::tge_ceiling_overflow_is_error ... ok
+test state::config::tests::tge_delay_ceiling ... ok
+test state::config::tests::tge_must_be_ahead_of_now ... ok
+test math::tests::vested_grows_strictly_on_every_tranche ... ok
+test test_id ... ok
+test math::tests::vested_never_exceeds_reference ... ok
+test math::tests::math_is_total_on_full_domain ... ok
+
+test result: ok. 57 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.09s
+
+     Running unittests src/lib.rs (target/debug/deps/vesting_e2e-2d4ab85c13ad40b1)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/lifecycle.rs (target/debug/deps/lifecycle-6e6fd3c7ee4f6dc1)
+
+running 1 test
+test five_sections_full_lifecycle_on_surfpool ... ignored, e2e: requires surfpool, run it through make e2e-vesting
+
+test result: ok. 0 passed; 0 failed; 1 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src/lib.rs (target/debug/deps/vesting_expected-a4f63f16f25be80f)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src/lib.rs (target/debug/deps/vesting_test_common-f28514220824c4cf)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/account_substitution.rs (target/debug/deps/account_substitution-5d916ba065cef260)
+
+running 18 tests
+test assert_funded_rejects_non_canonical_vault_authority_slot ... ok
+test cancel_rejects_config_at_non_canonical_address ... ok
+test cancel_rejects_non_canonical_vault_authority_slot ... ok
+test cancel_rejects_non_canonical_token_account_in_vault_slot ... ok
+test cancel_rejects_vesting_record_at_non_canonical_address ... ok
+test claim_rejects_config_at_non_canonical_address ... ok
+test claim_rejects_forged_event_authority ... ok
+test claim_rejects_non_canonical_token_account_in_vault_slot ... ok
+test claim_rejects_non_canonical_vault_authority_slot ... ok
+test claim_rejects_recipient_ata_of_another_mint ... ok
+test claim_rejects_vault_of_another_activity ... ok
+test claim_rejects_vesting_record_at_non_canonical_address ... ok
+test close_rejects_non_canonical_token_account_in_vault_slot ... ok
+test close_rejects_non_canonical_vault_authority_slot ... ok
+test direct_spl_close_account_on_vault_is_rejected_for_every_outside_signer ... ok
+test direct_spl_set_authority_on_vault_is_rejected_for_every_outside_signer ... ok
+test direct_spl_transfer_under_vault_authority_slot_fails_without_program_signature ... ok
+test direct_spl_transfer_from_vault_is_rejected_for_every_outside_signer ... ok
+
+test result: ok. 18 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 2.18s
+
+     Running tests/cancel_close.rs (target/debug/deps/cancel_close-8f2a72f95f5da72a)
+
+running 34 tests
+test activity_id_never_reused_after_cancel ... ok
+test cancel_rejects_after_tge ... ok
+test cancel_drains_vault_closes_both_accounts_and_returns_rent ... ok
+test cancel_rejects_activity_with_nonzero_claimed ... ok
+test cancel_rejects_beneficiary_token_equal_to_vault ... ok
+test cancel_rejects_forged_config ... ok
+test cancel_rejects_beneficiary_token_of_foreign_mint ... ok
+test cancel_rejects_foreign_owner_and_non_token_beneficiary_token ... ok
+test cancel_rejects_invalid_rent_collector ... ok
+test cancel_rejects_record_of_another_activity ... ok
+test cancel_rejects_token_account_as_rent_collector ... ok
+test cancel_rejects_unsigned_owner_slot ... ok
+test cancel_rejects_vault_address_as_rent_collector ... ok
+test cancel_rejects_vault_authority_ata_as_beneficiary_token ... ok
+test cancel_rejects_vault_of_another_activity ... ok
+test cancel_rejects_vault_of_another_activity_as_beneficiary_token ... ok
+test cancel_with_empty_vault_skips_transfer_and_still_closes ... ok
+test cancel_twice_fails_on_closed_activity ... ok
+test claim_chain_across_periods_then_close_vesting ... ok
+test cancel_rejects_wrong_signers ... ok
+test close_after_terminal_claim_closes_both_accounts_and_returns_rent ... ok
+test close_rejects_activity_short_by_one_unit ... ok
+test close_rejects_activity_with_nothing_claimed ... ok
+test close_rejects_beneficiary_token_of_foreign_mint_and_the_vault_address ... ok
+test close_rejects_foreign_owner_and_non_token_beneficiary_token ... ok
+test close_rejects_beneficiary_token_under_program_custody ... ok
+test close_rejects_invalid_rent_collector ... ok
+test close_rejects_record_of_another_activity ... ok
+test close_rejects_vault_of_another_activity ... ok
+test close_rejects_unsigned_owner_slot ... ok
+test create_vesting_takes_no_activity_id_argument ... ok
+test close_sends_the_excess_above_reference_to_the_beneficiary ... ok
+test close_rejects_wrong_signers ... ok
+test closed_activity_rejects_every_instruction_that_addresses_it ... ok
+
+test result: ok. 34 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 4.10s
+
+     Running tests/claim.rs (target/debug/deps/claim-dffbdcb7c585eb09)
+
+running 29 tests
+test claim_by_recipient_pays_out_accumulated_amount ... ok
+test claim_by_operator_pays_recipient_and_costs_operator_the_ata_rent ... ok
+test claim_at_tge_without_tge_share_yields_nothing_to_claim ... ok
+test claim_after_set_recipient_pays_the_new_recipient ... ok
+test claim_follows_operator_rotation_in_config ... ok
+test claim_into_existing_ata_tops_it_up_without_reinit ... ok
+test claim_long_after_full_release_yields_nothing_above_reference ... ok
+test claim_inside_an_already_paid_period_yields_nothing ... ok
+test claim_one_second_before_tge_is_rejected ... ok
+test claim_rejects_foreign_key_in_recipient_slot ... ok
+test claim_rejects_activity_id_argument_mismatching_the_accounts ... ok
+test claim_rejects_everyone_but_recipient_and_operator ... ok
+test claim_rejects_foreign_token_mint ... ok
+test claim_rejects_forged_config ... ok
+test claim_rejects_non_canonical_token_account_in_vault_slot ... ok
+test claim_rejects_non_positive_tge_in_config ... ok
+test claim_rejects_substituted_token_program ... ok
+test claim_rejects_recipient_of_another_activity ... ok
+test claim_rejects_record_of_another_activity ... ok
+test claim_rejects_underfunded_vault_on_the_terminal_tranche ... ok
+test claim_rejects_unsigned_signer_slot ... ok
+test claim_rejects_vault_of_another_activity ... ok
+test claim_reverts_when_forged_claimed_exceeds_vested ... ok
+test claim_rejects_vault_short_by_one_unit ... ok
+test immediate_repeat_claim_yields_nothing ... ok
+test monthly_tranche_opens_exactly_at_the_period_boundary_second ... ok
+test operator_cannot_redirect_payout_to_own_ata ... ok
+test second_claim_at_full_release_pays_the_remainder ... ok
+test two_claims_in_one_transaction_revert_whole_transaction_on_the_second ... ok
+
+test result: ok. 29 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 3.40s
+
+     Running tests/config_setters.rs (target/debug/deps/config_setters-eb97a33515152fa0)
+
+running 33 tests
+test admin_rotation_revokes_old_admin_on_set_tge ... ok
+test accept_owner_succeeds_for_candidate_who_became_admin ... ok
+test accept_owner_rejects_when_no_candidate_proposed ... ok
+test accept_owner_rejects_signer_other_than_candidate ... ok
+test cancel_owner_proposal_rejects_when_nothing_is_proposed ... ok
+test cancel_owner_proposal_drops_the_candidate ... ok
+test cancel_owner_proposal_rejects_wrong_signers ... ok
+test forged_config_outside_canonical_pda_rejected_by_seeds ... ok
+test owner_handover_transfers_role_in_two_steps ... ok
+test owner_instructions_reject_unsigned_owner_slot ... ok
+test owner_rotation_revokes_old_owner_on_every_instruction ... ok
+test owner_survives_proposal_of_address_without_a_key ... ok
+test propose_owner_accepts_current_admin_and_operator ... ok
+test propose_owner_rejects_default_pubkey ... ok
+test repeated_proposal_replaces_the_previous_candidate ... ok
+test propose_owner_rejects_wrong_signers ... ok
+test set_admin_accepts_current_owner_and_operator ... ok
+test roles_rotate_after_tge_while_schedule_is_frozen ... ok
+test set_admin_rejects_default_pubkey ... ok
+test set_admin_rejects_wrong_signers ... ok
+test set_admin_updates_field_and_emits_event ... ok
+test set_operator_accepts_current_owner_and_admin ... ok
+test set_operator_rejects_default_pubkey ... ok
+test set_operator_rejects_wrong_signers ... ok
+test set_tge_accepts_new_value_exactly_at_max_delay ... ok
+test set_operator_updates_field_and_emits_event ... ok
+test set_tge_moves_date_one_second_before_tge ... ok
+test set_tge_rejects_new_value_at_now ... ok
+test set_tge_rejects_new_value_beyond_max_delay ... ok
+test set_tge_rejects_one_second_after_tge ... ok
+test set_tge_rejects_unsigned_admin_slot ... ok
+test set_tge_rejects_when_now_equals_tge ... ok
+test set_tge_rejects_wrong_signers ... ok
+
+test result: ok. 33 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 3.54s
+
+     Running tests/create_vesting.rs (target/debug/deps/create_vesting-eb9c40b1e0095603)
+
+running 23 tests
+test create_vesting_rejects_activity_count_at_u64_max ... ok
+test create_vesting_counts_label_length_in_bytes ... ok
+test create_vesting_accepts_u64_max_reference_amount ... ok
+test create_vesting_accepts_all_five_real_sections ... ok
+test create_vesting_rejects_bps_above_denominator ... ok
+test create_vesting_rejects_at_and_after_tge ... ok
+test create_vesting_rejects_broken_share_pairing ... ok
+test create_vesting_rejects_cliff_of_one_month ... ok
+test create_vesting_rejects_foreign_token_mint ... ok
+test create_vesting_rejects_cliff_without_monthly_tranches ... ok
+test create_vesting_rejects_forged_config ... ok
+test create_vesting_rejects_monthly_bps_of_one ... ok
+test create_vesting_rejects_non_canonical_vault_authority_slot ... ok
+test create_vesting_rejects_non_system_recipient ... ok
+test create_vesting_rejects_off_curve_recipient ... ok
+test create_vesting_rejects_vault_authority_as_recipient ... ok
+test create_vesting_rejects_wrong_signers ... ok
+test create_vesting_rejects_zero_reference_amount ... ok
+test create_vesting_stores_fields_and_opens_empty_vault ... ok
+test create_vesting_schedule_months_boundary ... ok
+test create_vesting_survives_prefunded_addresses ... ok
+test second_create_vesting_takes_next_id_on_distinct_pdas ... ok
+test two_create_vesting_in_one_transaction_take_consecutive_ids ... ok
+
+test result: ok. 23 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 2.54s
+
+     Running tests/cu_bench.rs (target/debug/deps/cu_bench-1efb40a91f845ea3)
+
+running 3 tests
+test cu_bench_config_and_activity_lifecycle ... ok
+test cu_bench_claim_cold_warm_and_close ... ok
+test cu_bench_activity_bump_derivation_share ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.93s
+
+     Running tests/funding.rs (target/debug/deps/funding-e2b3ae9ff135e10d)
+
+running 17 tests
+test assert_funded_covers_remaining_obligation_after_partial_claim ... ok
+test assert_funded_changes_nothing ... ok
+test assert_funded_binds_vault_to_requested_activity ... ok
+test assert_funded_binds_reference_to_requested_activity ... ok
+test assert_funded_passes_at_exactly_reference_amount ... ok
+test assert_funded_is_permissionless ... ok
+test assert_funded_passes_when_coverage_exceeds_u64 ... ok
+test assert_funded_rejects_coverage_short_by_one_at_max_reference ... ok
+test assert_funded_rejects_one_unit_short ... ok
+test assert_funded_rejects_remaining_obligation_short_by_one ... ok
+test assert_funded_rejects_vault_slot_of_another_activity ... ok
+test assert_funded_rejects_vesting_slot_of_another_activity ... ok
+test stray_transfer_above_reference_does_not_increase_the_payout ... ok
+test topping_up_an_underfunded_vault_resumes_claims ... ok
+test funding_transaction_reverts_entirely_on_one_undermined_vault ... ok
+test funding_transaction_funds_five_vaults_and_revokes_mint_authority ... ok
+test undermint_locks_claims_and_keeps_the_activity_unclosable ... ok
+
+test result: ok. 17 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 2.14s
+
+     Running tests/initialize.rs (target/debug/deps/initialize-cde09fe09715efb0)
+
+running 18 tests
+test initialize_accepts_tge_exactly_at_max_delay ... ok
+test initialize_accepts_one_key_for_all_three_roles ... ok
+test initialize_rejects_default_admin ... ok
+test initialize_rejects_default_operator ... ok
+test initialize_rejects_default_owner ... ok
+test initialize_rejects_non_canonical_config_slot ... ok
+test initialize_rejects_non_canonical_vault_authority_slot ... ok
+test initialize_rejects_mint_with_wrong_decimals ... ok
+test initialize_rejects_program_data_of_another_program ... ok
+test initialize_rejects_off_curve_withdrawal_authority ... ok
+test initialize_rejects_signer_without_upgrade_authority ... ok
+test initialize_rejects_non_system_withdrawal_authority ... ok
+test initialize_rejects_tge_at_now ... ok
+test initialize_rejects_tge_beyond_max_delay ... ok
+test initialize_rejects_token_2022_mint_by_account_owner_check ... ok
+test initialize_rejects_withdrawal_authority_equal_to_vault_authority ... ok
+test initialize_stores_all_fields_and_emits_event ... ok
+test second_initialize_reverts_and_keeps_first_config ... ok
+
+test result: ok. 18 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.89s
+
+     Running tests/property_lifecycle.rs (target/debug/deps/property_lifecycle-0b3388cf8d55c935)
+
+running 4 tests
+test lifecycle_random_full_drain_then_close ... ok
+test lifecycle_random_sparse_claims ... ok
+test lifecycle_random_with_cancels_before_tge ... ok
+test lifecycle_random_dense_claims ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 12.42s
+
+     Running tests/role_matrix.rs (target/debug/deps/role_matrix-935bca19c3dea852)
+
+running 14 tests
+test accept_owner_rejects_every_actor_but_the_candidate ... ok
+test cancel_vesting_rejects_every_actor_but_owner ... ok
+test cancel_owner_proposal_rejects_every_actor_but_owner ... ok
+test assert_funded_accepts_all_six_actors ... ok
+test create_vesting_rejects_every_actor_but_owner ... ok
+test initialize_rejects_every_actor_but_the_upgrade_authority ... ok
+test close_vesting_rejects_every_actor_but_owner ... ok
+test claim_accepts_only_recipient_and_operator ... ok
+test propose_owner_rejects_every_actor_but_owner ... ok
+test set_admin_rejects_every_actor_but_owner ... ok
+test set_operator_rejects_every_actor_but_owner ... ok
+test set_recipient_rejects_every_actor_but_admin ... ok
+test set_tge_rejects_every_actor_but_admin ... ok
+test set_withdrawal_authority_rejects_every_actor_but_admin ... ok
+
+test result: ok. 14 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.79s
+
+     Running tests/schedules_reference.rs (target/debug/deps/schedules_reference-4abb9f88c3588209)
+
+running 2 tests
+test single_claim_after_full_release_pays_each_section_its_whole_reference ... ok
+test five_reference_sections_pay_exactly_the_manual_literals ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.96s
+
+     Running tests/set_recipient.rs (target/debug/deps/set_recipient-b9a452d13ff46aa9)
+
+running 14 tests
+test set_recipient_rejects_forged_config ... ok
+test set_recipient_after_tge_leaves_cancel_vesting_closed ... ok
+test set_recipient_after_partial_claim_redirects_the_remainder ... ok
+test set_recipient_on_fully_claimed_activity_passes_and_leaves_close_working ... ok
+test set_recipient_rejects_non_canonical_vault_authority_slot ... ok
+test set_recipient_rejects_non_system_new_recipient ... ok
+test set_recipient_rejects_record_of_another_activity ... ok
+test set_recipient_rejects_off_curve_new_recipient ... ok
+test set_recipient_rejects_unknown_activity ... ok
+test set_recipient_rejects_unsigned_admin_slot ... ok
+test set_recipient_rejects_vault_authority_as_new_recipient ... ok
+test set_recipient_rejects_wrong_signers ... ok
+test set_recipient_updates_field_and_emits_event ... ok
+test set_recipient_works_before_at_and_after_tge ... ok
+
+test result: ok. 14 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.68s
+
+     Running tests/set_withdrawal_authority.rs (target/debug/deps/set_withdrawal_authority-defdd6dc03fbfc3a)
+
+running 9 tests
+test set_withdrawal_authority_rejects_non_canonical_vault_authority_slot ... ok
+test set_withdrawal_authority_rejects_forged_config ... ok
+test cancel_vesting_pays_the_new_withdrawal_authority ... ok
+test close_vesting_pays_the_new_withdrawal_authority_after_tge ... ok
+test set_withdrawal_authority_rejects_unsigned_admin_slot ... ok
+test set_withdrawal_authority_rejects_off_curve_target ... ok
+test set_withdrawal_authority_rejects_vault_authority_as_target ... ok
+test set_withdrawal_authority_rejects_wrong_signers ... ok
+test set_withdrawal_authority_updates_field_and_emits_event ... ok
+
+test result: ok. 9 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.15s
+
+     Running tests/smoke.rs (target/debug/deps/smoke-fe3d7e5e779cf50f)
+
+running 6 tests
+test error_codes_are_frozen ... ok
+test warp_990_days_keeps_clock_consistent_and_transactions_executing ... ok
+test unknown_discriminator_fails_with_instruction_fallback_not_found ... ok
+test identical_tx_replay_rejected_until_blockhash_expires ... ok
+test programdata_fixture_resolves_with_expected_upgrade_authority ... ok
+test warp_to_rejects_time_rollback - should panic ... ok
+
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.74s
+
+     Running tests/tge_matrix.rs (target/debug/deps/tge_matrix-1fe5ca36d48911d6)
+
+running 12 tests
+test claim_at_tge_without_tge_share_has_nothing_to_pay_out ... ok
+test assert_funded_is_not_gated_by_tge ... ok
+test cancel_vesting_is_open_only_before_tge ... ok
+test claim_is_closed_before_tge_and_open_from_it ... ok
+test close_vesting_is_gated_by_full_claim_not_by_tge ... ok
+test create_vesting_is_open_only_before_tge ... ok
+test set_admin_is_not_gated_by_tge ... ok
+test owner_handover_is_not_gated_by_tge ... ok
+test set_operator_is_not_gated_by_tge ... ok
+test set_recipient_is_not_gated_by_tge ... ok
+test set_tge_is_open_only_before_tge ... ok
+test set_withdrawal_authority_is_not_gated_by_tge ... ok
+
+test result: ok. 12 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 3.86s
+
+   Doc-tests burn
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+   Doc-tests burn_tests
+error[E0463]: can't find crate for `sale_test_common`
+  --> tests/burn/src/lib.rs:17:5
+   |
+17 | use sale_test_common::TestEnv;
+   |     ^^^^^^^^^^^^^^^^ can't find crate
+
+error: aborting due to 1 previous error
+
+For more information about this error, try `rustc --explain E0463`.
+error: doctest failed, to rerun pass `-p burn-tests --doc`
+
+Caused by:
+  process didn't exit successfully: `/workspace/.rustup/toolchains/1.96.0-x86_64-unknown-linux-gnu/bin/rustdoc --edition=2021 --crate-type lib --color auto --crate-name burn_tests --test tests/burn/src/lib.rs --test-run-directory /workspace/1win-token-solana-programs/tests/burn -L native=/workspace/1win-token-solana-programs/target/debug/build/blake3-32279136e7e4269f/out -L native=/workspace/1win-token-solana-programs/target/debug/build/ring-517a6974f20d770f/out -L native=/workspace/1win-token-solana-programs/target/debug/build/zstd-sys-52e71d9d65ec49c1/out --extern anchor_lang=/workspace/1win-token-solana-programs/target/debug/deps/libanchor_lang-88cd0d7034bdc3c8.rlib --extern burn=/workspace/1win-token-solana-programs/target/debug/deps/libburn.rlib --extern burn_tests=/workspace/1win-token-solana-programs/target/debug/deps/libburn_tests-3460294874170a34.rlib --extern litesvm=/workspace/1win-token-solana-programs/target/debug/deps/liblitesvm-b3c1f44509daaebf.rlib --extern sale_test_common=/workspace/1win-token-solana-programs/target/debug/deps/libsale_test_common-511d0509d0e98c62.rlib --extern solana_instruction=/workspace/1win-token-solana-programs/target/debug/deps/libsolana_instruction-af1b64bbb71e78d8.rlib --extern solana_instruction_error=/workspace/1win-token-solana-programs/target/debug/deps/libsolana_instruction_error-542f1d79ae9adc6e.rlib --extern solana_keypair=/workspace/1win-token-solana-programs/target/debug/deps/libsolana_keypair-c4f2905843dab5c0.rlib --extern solana_program_pack=/workspace/1win-token-solana-programs/target/debug/deps/libsolana_program_pack-f4aa1dddb47c7261.rlib --extern solana_pubkey=/workspace/1win-token-solana-programs/target/debug/deps/libsolana_pubkey-e7147c302f8d6413.rlib --extern solana_sdk_ids=/workspace/1win-token-solana-programs/target/debug/deps/libsolana_sdk_ids-4fc939eb333e82eb.rlib --extern solana_signer=/workspace/1win-token-solana-programs/target/debug/deps/libsolana_signer-b0c2b8ca0273109b.rlib --extern solana_transaction_error=/workspace/1win-token-solana-programs/target/debug/deps/libsolana_transaction_error-1f4ffeddbb197982.rlib --extern spl_token_interface=/workspace/1win-token-solana-programs/target/debug/deps/libspl_token_interface-6dce1acc373ea89d.rlib -L dependency=/workspace/1win-token-solana-programs/target/debug/deps -C embed-bitcode=no --check-cfg 'cfg(docsrs,test)' --check-cfg 'cfg(feature, values())' --error-format human` (exit status: 1)
+note: test exited abnormally; to see the full output pass --no-capture to the harness.
+make: *** [Makefile:55: test] Error 1
